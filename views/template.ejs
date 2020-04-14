@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <% for (var i = 0; i < items.length; i++) { %> <% var item = items[i];%>
+    <p><%= (i+1) %>、<%-item.name%></p>
+    <% } %>
+
+    <div>测试一下</div>
+
+    <% if (user) { %>
+    <h2><%=user.name%></h2>
+    <% } else { %>
+    <h2>匿名用户</h2>
+    <% } %>
+  </body>
+</html>
