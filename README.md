@@ -34,7 +34,6 @@ switch (pathname) {
     break;
 }
 ```
-<!-- more -->
 ## 实现路由
 
 我们按照 `RESTful` 风格来实现我们的路由，他们应该是这样的
@@ -159,7 +158,7 @@ app.use(function(req, res, next) {
 });
 ```
 
-新建文件middleware.js，内容如下
+新建文件`middleware.js`，内容如下
 ```js
 const url = require("url");
 class MiddleWare {
@@ -205,9 +204,9 @@ next();
 ```
 每次取出队列里的第一个，然后执行它，然后把 `next` 方法传递一下，所以我们必须在中间件内部调用 `next` 方法，不然流程会中断。
 
-我们刚刚说的 `aloneMiddleWare` 有上面用的呢，其实是为了优化性能，因为有的中间件不是所有路由都使用到的，可能就一个路由用到了，那么如果我们把它注册在全局，那么所有的路由都会走一遍。所以这里做个优化，中间件支持如下注册方式，这样就只有 `/alone` 这个路由会走这个中间件，上面的存取使用 `this.aloneMiddleWare[middleWare];` 可能不严谨，最好做注册匹配，这里主要是提供思路
+我们刚刚说的 `aloneMiddleWare` 有上面用的呢，其实是为了优化性能，因为有的中间件不是所有路由都使用到的，可能就一个路由用到了，那么如果我们把它注册在全局，那么所有的路由都会走一遍。所以这里做个优化，中间件支持如下注册方式，这样就只有 `/alone` 这个路由会走这个中间件，上面的存取使用 `this.aloneMiddleWare[middleWare];` 可能不严谨，最好做正则匹配，这里主要是提供思路
 ```js
-app('/alone', middleware)
+app.use('/alone', middleware)
 ```
 
 这样之前的 `router.js` 内的 `app.handle` 方法就可以执行了，然后依次执行中间件，最后才执行路由上面写得回调方法

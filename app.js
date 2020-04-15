@@ -24,6 +24,7 @@ app.use(function(req, res, next) {
   req.query = url.parse(req.url, true).query;
   next();
 });
+// 注册ctx.render方法
 app.use(function(req, res, next) {
   res.render = function(file, data) {
     let template = render(file, data);
